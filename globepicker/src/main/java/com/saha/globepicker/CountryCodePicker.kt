@@ -1,6 +1,5 @@
 package com.saha.globepicker
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,18 +31,42 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.saha.globepicker.data.GlobeData
+import com.saha.globepicker.helper.Helpers
 import com.saha.globepicker.models.GlobeCountry
 
 
 @Composable
 fun CountryCodePicker(
-    selectedCountry: GlobeCountry? = null, onCountrySelected: (GlobeCountry) -> Unit
-) {
+    selectedCountry: GlobeCountry? = null,
+    showCountryFlag: Boolean = true,
+    showCountryName: Boolean = true,
+    showCountryDialCode: Boolean = true,
+    showCountryCode: Boolean = false,
 
-    val defaultCountry = GlobeData.countryList[0]
+    showCountryFlagOnExpand: Boolean = true,
+    showCountryNameOnExpand: Boolean = true,
+    showCountryDialCodeOnExpand: Boolean = true,
+    showCountryCodeOnExpand: Boolean = false,
+
+    detectCountry: Boolean = true,
+
+    onCountrySelected: (GlobeCountry) -> Unit
+) {
+    val context = LocalContext.current
+
+    val defaultCountry = if (detectCountry) {
+        val countryCode = Helpers.getSimCountryCode(context)
+        countryCode?.let {
+            return@let GlobeData.countryList.find { it.code.uppercase() == countryCode.uppercase() }
+        } ?: run {
+            GlobeData.countryList[0]
+        }
+    } else GlobeData.countryList[0]
+
     var mSelectedCountry by rememberSaveable {
         mutableStateOf(
             selectedCountry?.code ?: defaultCountry.code
@@ -54,8 +77,7 @@ fun CountryCodePicker(
 
     LaunchedEffect(Unit) {
         findCountryWithCountryCode(
-            countryList,
-            mSelectedCountry
+            countryList, mSelectedCountry
         )?.let { onCountrySelected.invoke(it) }
     }
 
@@ -63,7 +85,17 @@ fun CountryCodePicker(
         countryList = countryList,
         selectedCountry = findCountryWithCountryCode(countryList, mSelectedCountry)
             ?: defaultCountry,
-    ) {
+        showCountryFlag = showCountryFlag,
+        showCountryName = showCountryName,
+        showCountryDialCode = showCountryDialCode,
+        showCountryCode = showCountryCode,
+
+        showCountryFlagOnExpand = showCountryFlagOnExpand,
+        showCountryNameOnExpand = showCountryNameOnExpand,
+        showCountryDialCodeOnExpand = showCountryDialCodeOnExpand,
+        showCountryCodeOnExpand = showCountryCodeOnExpand,
+
+        ) {
         mSelectedCountry = it.code
         onCountrySelected.invoke(it)
     }
@@ -73,9 +105,19 @@ fun CountryCodePicker(
 private fun MyCountryCodePicker(
     countryList: List<GlobeCountry>,
     selectedCountry: GlobeCountry,
+    showCountryFlag: Boolean = true,
+    showCountryName: Boolean = true,
+    showCountryDialCode: Boolean = true,
+    showCountryCode: Boolean = false,
+
+    showCountryFlagOnExpand: Boolean = true,
+    showCountryNameOnExpand: Boolean = true,
+    showCountryDialCodeOnExpand: Boolean = true,
+    showCountryCodeOnExpand: Boolean = false,
+
     onCountrySelected: (GlobeCountry) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
 
     // Filtered list based on search query
@@ -90,15 +132,25 @@ private fun MyCountryCodePicker(
     }
 
     Box(modifier = Modifier.wrapContentSize()) {
+
+        val selectedItemText = buildString {
+            if (showCountryFlag) append("${selectedCountry.flag} ")
+            if (showCountryName) append("${selectedCountry.name} ")
+            if (showCountryCode) append(selectedCountry.code)
+            if (showCountryDialCode) append(" (${selectedCountry.dialCode})")
+        }
+
         // Picker button
         Row(modifier = Modifier
             .padding(12.dp)
             .clickable { expanded = true }
-            .border(1.dp, Color.Gray, shape = RoundedCornerShape(6.dp))
             .padding(horizontal = 12.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "${selectedCountry.flag} ${selectedCountry.name} (${selectedCountry.dialCode})")
+
+            Text(text = selectedItemText)
+
             Spacer(modifier = Modifier.width(8.dp))
+
             Icon(Icons.Default.ArrowDropDown, contentDescription = null)
         }
 
@@ -131,6 +183,14 @@ private fun MyCountryCodePicker(
                         // Scrollable country list
                         LazyColumn {
                             items(filteredList) { country ->
+
+                                val itemText = buildString {
+                                    if (showCountryFlagOnExpand) append("${country.flag} ")
+                                    if (showCountryNameOnExpand) append("${country.name} ")
+                                    if (showCountryCodeOnExpand) append(country.code)
+                                    if (showCountryDialCodeOnExpand) append(" (${country.dialCode})")
+                                }
+
                                 Row(modifier = Modifier
                                     .fillMaxWidth()
                                     .clickable {
@@ -140,7 +200,7 @@ private fun MyCountryCodePicker(
                                     }
                                     .padding(vertical = 8.dp),
                                     verticalAlignment = Alignment.CenterVertically) {
-                                    Text(text = "${country.flag} ${country.name} (${country.dialCode})")
+                                    Text(text = itemText)
                                 }
                             }
                         }
@@ -151,6 +211,8 @@ private fun MyCountryCodePicker(
     }
 }
 
-fun findCountryWithCountryCode(countryList: List<GlobeCountry>, countryCode: String): GlobeCountry? {
+fun findCountryWithCountryCode(
+    countryList: List<GlobeCountry>, countryCode: String
+): GlobeCountry? {
     return countryList.find { it.code.uppercase() == countryCode.uppercase() }
 }
