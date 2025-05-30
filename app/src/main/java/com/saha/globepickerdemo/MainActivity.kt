@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -40,12 +41,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {/*Text(
+private fun Greeting(name: String, modifier: Modifier = Modifier) {/*Text(
         text = "Hello $name!",
         modifier = modifier
     )*/
 
-    CountryCodePicker {
+    CountryCodePicker(
+        //modifier = Modifier.fillMaxWidth()
+    ) {
         Log.d(TAG, "Greeting: selectedCountry ${it.name}")
     }
 
@@ -53,7 +56,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {/*Text(
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+private fun GreetingPreview() {
     GlobePickerDemoTheme {
         Greeting("Android")
     }

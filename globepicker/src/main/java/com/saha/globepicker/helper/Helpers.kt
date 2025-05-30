@@ -2,6 +2,7 @@ package com.saha.globepicker.helper
 
 import android.content.Context
 import android.telephony.TelephonyManager
+import com.saha.globepicker.models.GlobeCountry
 import java.util.Locale
 
 object Helpers {
@@ -18,5 +19,9 @@ object Helpers {
         } catch (e: Exception) {
             null
         }
+    }
+
+    fun findCountryByCode(countryList: List<GlobeCountry>, code: String): GlobeCountry? {
+        return countryList.find { it.code.equals(code, ignoreCase = true) }
     }
 }
