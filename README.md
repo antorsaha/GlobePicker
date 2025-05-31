@@ -58,15 +58,15 @@ Step 2. Add the dependency
 	        implementation("com.github.antorsaha:GlobePicker:x.y.z")
 	}
    ````
-   App version [![](https://jitpack.io/v/antorsaha/GlobePicker.svg)](https://jitpack.io/#antorsaha/GlobePicker)
-  * If you are using some other version of gradle theck [check here](https://jitpack.io/#antorsaha/GlobePicker)
+   [![](https://jitpack.io/v/antorsaha/GlobePicker.svg)](https://jitpack.io/#antorsaha/GlobePicker)
+  * If you are using some other version of gradle then [check here](https://jitpack.io/#antorsaha/GlobePicker)
   
 
 Usage
 --------
 ````
   CountryCodePicker(
-    selectedCountry = selectedCountry, //Initial selection just. no need to manage state by using this it will manage state by itself
+    selectedCountry = selectedCountry, //Initial selection. no need to manage state by using this it will manage state by itself
     onCountrySelected = {globeCountry->
       //Do whatever you want
      }
@@ -139,7 +139,7 @@ Pull requests, issues, and improvements are welcome! Please follow the existing 
 ## Credits
 - [CountryCodePickerProject](https://github.com/hbb20/CountryCodePickerProject) by [hbb20](https://github.com/hbb20)
 - Initial feature developed by [Antor Saha](https://github.com/antorsaha)
-- Initial Country list Gathered by [Ferdous](https://github.com/ferdous-mahmud)
+- Initial Country list gathered by [Ferdous](https://github.com/ferdous-mahmud)
 
 
 ## License
