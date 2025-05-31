@@ -19,12 +19,13 @@ Introduction
 ------------
 * Give a professional touch to your well designed form like login screen, sign up screen, edit profile screen with GlobePicker. When used as phone code picker, it helps by removing confusion about how to add phone number and making view more understandable. 
 	  
-* With GlobePicker you can get following views easily without boilerplate code. (Left: Country code selector with dialcode. Right: country name with dial code)
+* With GlobePicker you can get following views easily without boilerplate code. (Left: Country code selector with dialcode. Right: c  ountry name with dial code)
 
     <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/globePickerCC.jpg" width="300">     <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/globePickerFull.jpg" width="400">    
     
-* Tapping on the picker will open a dialog to search and select country (Left: Country code selector with dialcode. Right: country name with dial code)
- <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/globePickerDialogSS.jpg" width="280"> <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/GlobePickerDialogSS2.jpg" width="280">
+* Tapping on the picker will open a dialog to search and select country (First: Country code selector with dialcode. Second: country name with dial code)
+ <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/globePickerDialogSS.jpg" width="280"> 
+ <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/GlobePickerDialogSS2.jpg" width="280">
 
 Features
 --------------
