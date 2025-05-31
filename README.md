@@ -24,7 +24,7 @@ Introduction
     <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/globePickerCC.jpg" width="300">     <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/globePickerFull.jpg" width="400">    
     
 * Tapping on the picker will open a dialog to search and select country (Left: Country code selector with dialcode. Right: country name with dial code)
- <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/globePickerDialogSS.jpg" width="300"> <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/GlobePickerDialogSS2.jpg" width="300">
+ <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/globePickerDialogSS.jpg" width="280"> <img src="https://raw.githubusercontent.com/antorsaha/libraryAssets/refs/heads/master/GlobePickerDialogSS2.jpg" width="280">
 
 Features
 --------------
