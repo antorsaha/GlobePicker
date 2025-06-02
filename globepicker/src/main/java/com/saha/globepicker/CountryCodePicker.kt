@@ -46,7 +46,7 @@ import com.saha.globepicker.models.GlobeCountry
 @Composable
 fun CountryCodePicker(
     modifier: Modifier = Modifier,
-    selectedCountry: GlobeCountry? = null,
+    selectedCountry: String? = null,
     showCountryFlag: Boolean = true,
     showCountryName: Boolean = true,
     showCountryDialCode: Boolean = true,
@@ -97,7 +97,7 @@ fun CountryCodePicker(
     val defaultCountry = detectedCountry ?: filteredCountryList.firstOrNull()
 
     var selectedCountryCode by rememberSaveable {
-        mutableStateOf(selectedCountry?.code ?: defaultCountry?.code.orEmpty())
+        mutableStateOf(selectedCountry?.uppercase() ?: defaultCountry?.code.orEmpty())
     }
 
     val currentCountry =
@@ -121,7 +121,7 @@ fun CountryCodePicker(
         showCountryNameOnExpand = showCountryNameOnExpand,
         showCountryDialCodeOnExpand = showCountryDialCodeOnExpand,
         showCountryCodeOnExpand = showCountryCodeOnExpand,
-        isDisabled = isDisabled,
+        isDisabled = isDisabled || includeCountries.size  <= 1,
         dropdownIcon = dropdownIcon,
         textColor = textColor,
         dialogBackgroundColor = dialogBackgroundColor,

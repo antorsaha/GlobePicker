@@ -29,9 +29,11 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        Greeting(
-                            name = "Android", modifier = Modifier.padding(innerPadding)
-                        )
+                        CountryCodePicker(
+                            includeCountries = listOf("us")
+                        ) {
+                            Log.d(TAG, "Greeting: selectedCountry ${it.name}")
+                        }
                     }
 
                 }
@@ -40,24 +42,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-private fun Greeting(name: String, modifier: Modifier = Modifier) {/*Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )*/
-
-    CountryCodePicker(
-        //modifier = Modifier.fillMaxWidth()
-    ) {
-        Log.d(TAG, "Greeting: selectedCountry ${it.name}")
-    }
-
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun GreetingPreview() {
     GlobePickerDemoTheme {
-        Greeting("Android")
     }
 }
